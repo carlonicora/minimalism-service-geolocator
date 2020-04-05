@@ -1,11 +1,11 @@
 <?php
-namespace phlow\library\services\geolocator\factories;
+namespace carlonicora\minimalism\services\geolocator\factories;
 
 use carlonicora\minimalism\core\services\abstracts\abstractServiceFactory;
 use carlonicora\minimalism\core\services\exceptions\configurationException;
 use carlonicora\minimalism\core\services\factories\servicesFactory;
-use phlow\library\services\geolocator\configurations\geolocatorConfigurations;
-use phlow\library\services\geolocator\geolocator;
+use carlonicora\minimalism\services\geolocator\configurations\geolocatorConfigurations;
+use carlonicora\minimalism\services\geolocator\geolocator;
 
 class serviceFactory extends abstractServiceFactory {
     /**

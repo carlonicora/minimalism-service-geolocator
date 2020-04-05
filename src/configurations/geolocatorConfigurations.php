@@ -1,6 +1,5 @@
 <?php
-namespace phlow\library\services\geolocator\configurations;
-
+namespace carlonicora\minimalism\services\geolocator\configurations;
 
 use carlonicora\minimalism\core\services\abstracts\abstractServiceConfigurations;
 

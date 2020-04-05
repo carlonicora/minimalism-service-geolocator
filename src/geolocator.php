@@ -1,12 +1,12 @@
 <?php
-namespace phlow\library\services\geolocator;
+namespace carlonicora\minimalism\services\geolocator;
 
 use carlonicora\minimalism\core\services\abstracts\abstractService;
 use carlonicora\minimalism\core\services\factories\servicesFactory;
 use carlonicora\minimalism\core\services\interfaces\serviceConfigurationsInterface;
 use Exception;
 use IP2Location\Database;
-use phlow\library\services\geolocator\configurations\geolocatorConfigurations;
+use carlonicora\minimalism\services\geolocator\configurations\geolocatorConfigurations;
 use RuntimeException;
 
 class geolocator extends abstractService {
