@@ -43,13 +43,13 @@ class geolocator extends abstractService {
 
         $record = $this->ip2location->lookup($ip, Database::ALL);
 
-        if ($record === null){
+        if (empty($record)){
             throw new RuntimeException('IP not found');
         }
 
-        $countryCode = $record['countryCode'];
-        $cityName = $record['cityName'];
-        $latitude = $record['latitude'];
-        $longitude = $record['longitude'];
+        $countryCode = ($record['countryCode'] === '-') ? '': $record['countryCode'];
+        $cityName = ($record['cityName'] === '-') ? '' : $record['cityName'];
+        $latitude = (empty($record['latitude'])) ? '': $record['latitude'];
+        $longitude = (empty($record['longitude'])) ? '': $record['longitude'];
     }
 }
