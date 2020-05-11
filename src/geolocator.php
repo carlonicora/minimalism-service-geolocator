@@ -32,9 +32,11 @@ class geolocator extends abstractService {
      * @param string $ip
      * @param string $countryCode
      * @param string $cityName
+     * @param string $latitude
+     * @param string $longitude
      * @throws Exception
      */
-    public function lookupIP(string $ip, string &$countryCode, string &$cityName) : void {
+    public function lookupIP(string $ip, string &$countryCode, string &$cityName, string &$latitude, string &$longitude) : void {
         if ($this->ip2location === null){
             $$this->ip2location = new Database($this->configData->geolocationFile, Database::FILE_IO);
         }
@@ -47,5 +49,7 @@ class geolocator extends abstractService {
 
         $countryCode = $record['countryCode'];
         $cityName = $record['cityName'];
+        $latitude = $record['latitude'];
+        $longitude = $record['longitude'];
     }
 }
