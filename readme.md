@@ -10,7 +10,7 @@ To use this library, you need to have an application using minimalism. This libr
 ### Prerequisite
 
 You should have read the [minimalism documentation](https://github.com/carlonicora/minimalism/readme.md) and understand
-the concepts of services in the framework.
+the concepts of Services in the framework.
 
 minimalism-service-geolocator uses data coming from the free version of IP2LOCATION.
 

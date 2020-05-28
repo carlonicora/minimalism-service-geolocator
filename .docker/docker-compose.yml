@@ -1,12 +1,25 @@
-version: '3.7'
+version: '3.8'
 
 services:
   minimalism-service-geolocator:
     container_name: minimalism-service-geolocator
-    image: carlonicora/php-cli-base:7.4.3.2
+    image: carlonicora/minimalism-service-geolocator:3.0
+    build:
+      context: .
+      dockerfile: ./php-cli/Dockerfile
+      args:
+        - XDEBUG_HOST=${XDEBUG_HOST}
+        - XDEBUG_PORT=${XDEBUG_PORT}
     working_dir: /app
     volumes:
       - ../:/app
       - ../:/opt/project
     tty: true
     stdin_open: true
+    networks:
+      - default_network
+
+networks:
+  default_network:
+    driver: bridge
+    name: carlonicora

@@ -1,27 +1,29 @@
 <?php
-namespace carlonicora\minimalism\services\geolocator;
+namespace CarloNicora\Minimalism\Services\Geolocator;
 
-use carlonicora\minimalism\core\services\abstracts\abstractService;
-use carlonicora\minimalism\core\services\factories\servicesFactory;
-use carlonicora\minimalism\core\services\interfaces\serviceConfigurationsInterface;
+use CarloNicora\Minimalism\Core\Services\Abstracts\AbstractService;
+use CarloNicora\Minimalism\Core\Services\Factories\ServicesFactory;
+use CarloNicora\Minimalism\Core\Services\Interfaces\ServiceConfigurationsInterface;
 use Exception;
 use IP2Location\Database;
-use carlonicora\minimalism\services\geolocator\configurations\geolocatorConfigurations;
+use CarloNicora\Minimalism\Services\Geolocator\Configurations\GeolocatorConfigurations;
 use RuntimeException;
 
-class geolocator extends abstractService {
-    /** @var geolocatorConfigurations  */
-    private geolocatorConfigurations $configData;
+class Geolocator extends AbstractService
+{
+    /** @var GeolocatorConfigurations  */
+    private GeolocatorConfigurations $configData;
 
     /** @var Database|null */
     private ?Database $ip2location=null;
 
     /**
-     * abstractApiCaller constructor.
-     * @param serviceConfigurationsInterface $configData
-     * @param servicesFactory $services
+     * AbstractApiCaller constructor.
+     * @param ServiceConfigurationsInterface $configData
+     * @param ServicesFactory $services
      */
-    public function __construct(serviceConfigurationsInterface $configData, servicesFactory $services) {
+    public function __construct(ServiceConfigurationsInterface $configData, ServicesFactory $services)
+    {
         parent::__construct($configData, $services);
 
         /** @noinspection PhpFieldAssignmentTypeMismatchInspection */
@@ -36,7 +38,8 @@ class geolocator extends abstractService {
      * @param string $longitude
      * @throws Exception
      */
-    public function lookupIP(string $ip, string &$countryCode, string &$cityName, string &$latitude, string &$longitude) : void {
+    public function lookupIP(string $ip, string &$countryCode, string &$cityName, string &$latitude, string &$longitude) : void
+    {
         if ($this->ip2location === null){
             $this->ip2location = new Database($this->configData->geolocationFile, Database::FILE_IO);
         }
