@@ -10,6 +10,6 @@ class GeolocatorConfigurations extends AbstractServiceConfigurations
 
     public function __construct()
     {
-        $this->geolocationFile = __DIR__ . '/../../data/IP2LOCATION-LITE-DB3.BIN';
+        $this->geolocationFile = __DIR__ . '/../../data/IP2LOCATION-LITE-DB5.BIN';
     }
 }

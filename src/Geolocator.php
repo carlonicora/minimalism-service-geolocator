@@ -41,7 +41,7 @@ class Geolocator extends AbstractService
     public function lookupIP(string $ip, string &$countryCode, string &$cityName, string &$latitude, string &$longitude) : void
     {
         if ($this->ip2location === null){
-            $this->ip2location = new Database($this->configData->geolocationFile, Database::FILE_IO);
+            $this->ip2location = new Database($this->configData->geolocationFile, Database::MEMORY_CACHE);
         }
 
         $record = $this->ip2location->lookup($ip, Database::ALL);
