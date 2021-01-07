@@ -1,33 +1,27 @@
 <?php
 namespace CarloNicora\Minimalism\Services\Geolocator;
 
-use CarloNicora\Minimalism\Core\Services\Abstracts\AbstractService;
-use CarloNicora\Minimalism\Core\Services\Factories\ServicesFactory;
-use CarloNicora\Minimalism\Core\Services\Interfaces\ServiceConfigurationsInterface;
+use CarloNicora\Minimalism\Interfaces\ServiceInterface;
 use Exception;
 use IP2Location\Database;
-use CarloNicora\Minimalism\Services\Geolocator\Configurations\GeolocatorConfigurations;
 use RuntimeException;
 
-class Geolocator extends AbstractService
+class Geolocator implements ServiceInterface
 {
-    /** @var GeolocatorConfigurations  */
-    private GeolocatorConfigurations $configData;
+    /**
+     * @var string
+     */
+    private string $geolocationFile;
 
     /** @var Database|null */
     private ?Database $ip2location=null;
 
     /**
-     * AbstractApiCaller constructor.
-     * @param ServiceConfigurationsInterface $configData
-     * @param ServicesFactory $services
+     * Geolocator constructor.
      */
-    public function __construct(ServiceConfigurationsInterface $configData, ServicesFactory $services)
-    {
-        parent::__construct($configData, $services);
-
-        /** @noinspection PhpFieldAssignmentTypeMismatchInspection */
-        $this->configData = $configData;
+    public function __construct(
+    ){
+        $this->geolocationFile = __DIR__ . '/../../data/IP2LOCATION-LITE-DB5.BIN';
     }
 
     /**
@@ -41,7 +35,7 @@ class Geolocator extends AbstractService
     public function lookupIP(string $ip, string &$countryCode, string &$cityName, string &$latitude, string &$longitude) : void
     {
         if ($this->ip2location === null){
-            $this->ip2location = new Database($this->configData->geolocationFile, Database::MEMORY_CACHE);
+            $this->ip2location = new Database($this->geolocationFile, Database::MEMORY_CACHE);
         }
 
         $record = $this->ip2location->lookup($ip, Database::ALL);
@@ -55,4 +49,14 @@ class Geolocator extends AbstractService
         $latitude = (empty($record['latitude'])) ? '': $record['latitude'];
         $longitude = (empty($record['longitude'])) ? '': $record['longitude'];
     }
+
+    /**
+     *
+     */
+    public function initialise(): void {}
+
+    /**
+     *
+     */
+    public function destroy(): void {}
 }
