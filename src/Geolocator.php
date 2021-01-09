@@ -21,7 +21,7 @@ class Geolocator implements ServiceInterface
      */
     public function __construct(
     ){
-        $this->geolocationFile = __DIR__ . '/../../data/IP2LOCATION-LITE-DB5.BIN';
+        $this->geolocationFile = __DIR__ . '/../data/IP2LOCATION-LITE-DB5.BIN';
     }
 
     /**
