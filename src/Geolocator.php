@@ -19,7 +19,9 @@ class Geolocator implements ServiceInterface
         Path $path,
     ){
         $this->database = $path->getRoot()
-            . 'data' . DIRECTORY_SEPARATOR
+            . DIRECTORY_SEPARATOR
+            . 'data'
+            . DIRECTORY_SEPARATOR
             . 'GeoIP2-City.mmdb';
 
         if (!file_exists($this->database)){
