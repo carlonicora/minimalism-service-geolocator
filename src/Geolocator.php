@@ -2,52 +2,63 @@
 namespace CarloNicora\Minimalism\Services\Geolocator;
 
 use CarloNicora\Minimalism\Interfaces\ServiceInterface;
+use CarloNicora\Minimalism\Services\Path;
 use Exception;
-use IP2Location\Database;
-use RuntimeException;
+use GeoIp2\Database\Reader;
 
 class Geolocator implements ServiceInterface
 {
-    /**
-     * @var string
-     */
-    private string $geolocationFile;
-
-    /** @var Database|null */
-    private ?Database $ip2location=null;
+    /** @var string|null  */
+    private ?string $database;
 
     /**
      * Geolocator constructor.
+     * @param Path $path
      */
     public function __construct(
+        Path $path,
     ){
-        $this->geolocationFile = __DIR__ . '/../data/IP2LOCATION-LITE-DB5.BIN';
+        $this->database = $path->getRoot()
+            . 'data' . DIRECTORY_SEPARATOR
+            . 'GeoIP2-City.mmdb';
+
+        if (!file_exists($this->database)){
+            $this->database = null;
+        }
     }
 
     /**
      * @param string $ip
-     * @param string $countryCode
-     * @param string $cityName
-     * @param string $latitude
-     * @param string $longitude
-     * @throws Exception
+     * @param string|null $countryCode
+     * @param string|null $cityName
+     * @param float|null $latitude
+     * @param float|null $longitude
      */
-    public function lookupIP(string $ip, string &$countryCode, string &$cityName, string &$latitude, string &$longitude) : void
+    public function lookupIP(
+        string $ip,
+        ?string &$countryCode,
+        ?string &$cityName,
+        ?float &$latitude,
+        ?float &$longitude
+    ) : void
     {
-        if ($this->ip2location === null){
-            $this->ip2location = new Database($this->geolocationFile, Database::MEMORY_CACHE);
+        if ($this->database !== null){
+            try {
+                $reader = new Reader($this->database);
+
+                $record = $reader->city($ip);
+
+                $countryCode = $record->country->isoCode;
+                $cityName = $record->city->name;
+                $latitude = $record->location->latitude;
+                $longitude = $record->location->longitude;
+            } catch (Exception) {
+                $countryCode = null;
+                $cityName = null;
+                $latitude = null;
+                $longitude = null;
+            }
         }
-
-        $record = $this->ip2location->lookup($ip, Database::ALL);
-
-        if (empty($record)){
-            throw new RuntimeException('IP not found');
-        }
-
-        $countryCode = ($record['countryCode'] === '-') ? '': $record['countryCode'];
-        $cityName = ($record['cityName'] === '-') ? '' : $record['cityName'];
-        $latitude = (empty($record['latitude'])) ? '': $record['latitude'];
-        $longitude = (empty($record['longitude'])) ? '': $record['longitude'];
     }
 
     /**
