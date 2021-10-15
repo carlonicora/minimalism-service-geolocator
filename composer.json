@@ -1,12 +1,12 @@
 {
   "name": "carlonicora/minimalism-service-geolocator",
   "description": "Geolocator service for minimalism",
-  "version": "4.1.1",
+  "version": "4.1.2-beta1",
   "homepage": "https://carlonicora.com",
   "time": "2019-05-14",
   "license": "MIT",
   "type": "library",
-  "minimum-stability": "stable",
+  "minimum-stability": "beta",
   "authors": [
     {
       "name": "Carlo Nicora",
@@ -27,7 +27,7 @@
   },
   "require": {
     "php": ">=8.0",
-    "carlonicora/minimalism": "~12.1",
+    "carlonicora/minimalism": "~13.0",
     "maxmind-db/reader": "~1.10",
     "geoip2/geoip2": "~2.11"
   },
