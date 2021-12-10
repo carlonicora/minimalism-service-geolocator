@@ -1,12 +1,12 @@
 <?php
 namespace CarloNicora\Minimalism\Services\Geolocator;
 
-use CarloNicora\Minimalism\Interfaces\ServiceInterface;
+use CarloNicora\Minimalism\Abstracts\AbstractService;
 use CarloNicora\Minimalism\Services\Path;
 use Exception;
 use GeoIp2\Database\Reader;
 
-class Geolocator implements ServiceInterface
+class Geolocator extends AbstractService
 {
     /** @var string|null  */
     private ?string $database;
@@ -18,6 +18,7 @@ class Geolocator implements ServiceInterface
     public function __construct(
         Path $path,
     ){
+        parent::__construct();
         $this->database = $path->getRoot()
             . DIRECTORY_SEPARATOR
             . 'data'
