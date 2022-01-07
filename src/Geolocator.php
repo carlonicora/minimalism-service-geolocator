@@ -47,9 +47,7 @@ class Geolocator extends AbstractService
     {
         if ($this->database !== null){
             try {
-                $reader = new Reader($this->database);
-
-                $record = $reader->city($ip);
+                $record = (new Reader($this->database))->city($ip);
 
                 $countryCode = $record->country->isoCode;
                 $cityName = $record->city->name;
