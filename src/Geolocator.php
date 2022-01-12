@@ -18,7 +18,6 @@ class Geolocator extends AbstractService
     public function __construct(
         Path $path,
     ){
-        parent::__construct();
         $this->database = $path->getRoot()
             . DIRECTORY_SEPARATOR
             . 'data'
@@ -61,14 +60,4 @@ class Geolocator extends AbstractService
             }
         }
     }
-
-    /**
-     *
-     */
-    public function initialise(): void {}
-
-    /**
-     *
-     */
-    public function destroy(): void {}
 }
